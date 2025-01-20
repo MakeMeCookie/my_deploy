@@ -28,4 +28,4 @@ spec:
     spec:
       containers:
       - name: h-con
-        image: kjs0508/ipnginx:latest
+        image: kjs0508/hnginx:latest
