@@ -1,21 +1,4 @@
-name: CI/CD
-
-on: #언제 동작할지.
-  push: # push가 됐을때,
-    branches: [ main ] # main브랜치에
-    paths-ignore: # 밑에 파일들의 변경사항이 생겨도 무시.
-    - '.gitignore'
-    - '.dockerignore'
-
-jobs: # 수행할 내용.
-  Continuous_Integration:   #job 이름. 내가 정함함
-    runs-on: ubuntu-latest  #job을 실행할 환경. 깃허브가 제공
-    steps:
-
-    - uses: actions/checkout@v4 # uses=액션들. 이미 만들어진 액션을 검색해서 가져다 쓰면된다. 해당 레포에 접근 권한이 있다면 레포를 가져올것.
-      with:
-        fetch-depth: 1          #가장 최근 commit한 히스토리만 가져온다.
-        - name: Checkout Deployment Repository
+- name: Checkout Deployment Repository
       uses: actions/checkout@v4
       with:
         repository: kjs0508/my_deploy #본인에 맞게 수정
