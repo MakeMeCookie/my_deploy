@@ -19,22 +19,22 @@ jobs: # 수행할 내용.
       uses: docker/setup-buildx-action@v2
     # 도커환경을 쓸꺼야. 도커 명령을 쓸 수 있는 환경 제공공
     - name: Checkout Deployment Repository
-    uses: actions/checkout@v4
-    with:
-      repository: kjs0508/my_deploy #본인에 맞게 수정
-      ref: main  # branch
-      token: ${{ secrets.GH_TOKEN }}
+      uses: actions/checkout@v4
+      with:
+        repository: kjs0508/my_deploy #본인에 맞게 수정
+        ref: main  # branch
+        token: ${{ secrets.GH_TOKEN }}
 
     - name: k8s manifest update
-    run: |
-      sed -i "s@ \
-      image: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REPOSITORY }}:.*@ \
-      image: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REPOSITORY }}:${{ env.IMAGE_TAG }}@g" deployment.yml
+      run: |
+        sed -i "s@ \
+        image: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REPOSITORY }}:.*@ \
+        image: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REPOSITORY }}:${{ env.IMAGE_TAG }}@g" deployment.yml
 
     - name: Commit and Push
-    run: |
-      git config user.email ${{ env.GIT_EMAIL }}
-      git config user.name ${{ env.GIT_NAME }}
-      git add deployment.yml
-      git commit -m "Update image tag"
-      git push origin main
+      run: |
+        git config user.email ${{ env.GIT_EMAIL }}
+        git config user.name ${{ env.GIT_NAME }}
+        git add deployment.yml
+        git commit -m "Update image tag"
+        git push origin main
